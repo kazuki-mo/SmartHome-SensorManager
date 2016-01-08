@@ -1,0 +1,33 @@
+﻿@model SmartHome_SensorManagement.Models.PowerSensor
+@{
+    ViewBag.Title = "ChangePowerInfo";
+}
+
+<br />
+<h2>電力センサ（ ID:@Model.SensorID ）の情報を変更</h2>
+<br />
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+
+    <fieldset>
+        <legend></legend>
+        <ol>
+            <li>
+                @Html.Label("接続中家電")
+                @Html.TextBoxFor(m => m.ConsumerElectronics)
+            </li>
+            <li>
+                @Html.Label("メモ")
+                @Html.TextAreaFor(m => m.Detail)
+            </li>
+        </ol>
+        <input type="submit" value="変更" />
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,419 @@
+﻿@model System.Data.Entity.DbSet<SmartHome_SensorManagement.Models.EnvironmentSensor>
+@{
+    ViewBag.Title = "Sensor Manager";
+    var xx = System.Web.HttpContext.Current.Request;
+    string BaseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, xx.Url.Authority, Url.Content("~"));
+    
+    
+}
+
+<script>
+
+    var sensor1_x = parseFloat(@Model.Where(p=>p.SensorID == 9).SingleOrDefault().Position.Split(',')[0]);
+    var sensor1_y = parseFloat(@Model.Where(p=>p.SensorID == 9).SingleOrDefault().Position.Split(',')[1]);
+    var sensor2_x = parseFloat(@Model.Where(p=>p.SensorID == 16).SingleOrDefault().Position.Split(',')[0]);
+    var sensor2_y = parseFloat(@Model.Where(p=>p.SensorID == 16).SingleOrDefault().Position.Split(',')[1]);
+    var sensor3_x = parseFloat(@Model.Where(p=>p.SensorID == 17).SingleOrDefault().Position.Split(',')[0]);
+    var sensor3_y = parseFloat(@Model.Where(p=>p.SensorID == 17).SingleOrDefault().Position.Split(',')[1]);
+    var sensor4_x = parseFloat(@Model.Where(p=>p.SensorID == 23).SingleOrDefault().Position.Split(',')[0]);
+    var sensor4_y = parseFloat(@Model.Where(p=>p.SensorID == 23).SingleOrDefault().Position.Split(',')[1]);
+    var sensor5_x = parseFloat(@Model.Where(p=>p.SensorID == 31).SingleOrDefault().Position.Split(',')[0]);
+    var sensor5_y = parseFloat(@Model.Where(p=>p.SensorID == 31).SingleOrDefault().Position.Split(',')[1]);
+    var sensor6_x = parseFloat(@Model.Where(p=>p.SensorID == 44).SingleOrDefault().Position.Split(',')[0]);
+    var sensor6_y = parseFloat(@Model.Where(p=>p.SensorID == 44).SingleOrDefault().Position.Split(',')[1]);
+
+    var flag;
+    var posX;
+    var posY;
+
+    window.onload = function () {
+
+        var canvas = document.getElementById('Canvas');
+        var ctx = canvas.getContext('2d');
+
+        var img_house = new Image();
+        var img_sensor1 = new Image();
+        var img_sensor2 = new Image();
+        var img_sensor3 = new Image();
+        var img_sensor4 = new Image();
+        var img_sensor5 = new Image();
+        var img_sensor6 = new Image();
+        img_house.src = "@BaseUrl/Pictures/smarthouse.JPG";
+        img_house.onload = function () {
+            ctx.drawImage(img_house, 0, 0, 531, 289);
+            sensorImgAdd();
+        }
+
+        function sensorImgAdd() {
+
+            img_sensor6.src = "@BaseUrl/Pictures/環境センサ6.png";
+            img_sensor6.setAttribute("id", "EnvironmentSensor");
+            img_sensor6.onload = function () {
+                ctx.drawImage(img_sensor6, sensor6_x, sensor6_y, 53, 48);
+            }
+            img_sensor5.src = "@BaseUrl/Pictures/環境センサ5.png";
+            img_sensor5.setAttribute("id", "EnvironmentSensor");
+            img_sensor5.onload = function () {
+                ctx.drawImage(img_sensor5, sensor5_x, sensor5_y, 53, 48);
+            }
+            img_sensor4.src = "@BaseUrl/Pictures/環境センサ4.png";
+            img_sensor4.setAttribute("id", "EnvironmentSensor");
+            img_sensor4.onload = function () {
+                ctx.drawImage(img_sensor4, sensor4_x, sensor4_y, 53, 48);
+            }
+            img_sensor3.src = "@BaseUrl/Pictures/環境センサ3.png";
+            img_sensor3.setAttribute("id", "EnvironmentSensor");
+            img_sensor3.onload = function () {
+                ctx.drawImage(img_sensor3, sensor3_x, sensor3_y, 53, 48);
+            }
+            img_sensor2.src = "@BaseUrl/Pictures/環境センサ2.png";
+            img_sensor2.setAttribute("id", "EnvironmentSensor");
+            img_sensor2.onload = function () {
+                ctx.drawImage(img_sensor2, sensor2_x, sensor2_y, 53, 48);
+            }
+            img_sensor1.src = "@BaseUrl/Pictures/環境センサ1.png";
+            img_sensor1.setAttribute("id", "EnvironmentSensor");
+            img_sensor1.onload = function () {
+                ctx.drawImage(img_sensor1, sensor1_x, sensor1_y, 53, 48);
+            }
+
+        }
+
+        //var e = document.getElementById('EnvironmentSensor');
+
+
+        //var sensor1_x = 0;
+        //var sensor1_y = 0;
+        //var sensor2_x = 0;
+        //var sensor2_y = 0;
+        //var sensor3_x = 0;
+        //var sensor3_y = 0;
+        //var sensor4_x = 0;
+        //var sensor4_y = 0;
+        //var sensor5_x = 0;
+        //var sensor5_y = 0;
+        //var sensor6_x = 0;
+        //var sensor6_y = 0;
+
+        canvas.onmousedown = function (evt) {
+
+            posX = parseInt(evt.clientX - canvas.offsetLeft + document.documentElement.scrollLeft);
+            posY = parseInt(evt.clientY - canvas.offsetTop + document.documentElement.scrollTop);
+
+
+            //console.log("evt.clientX: " + evt.clientX + " , evt.clientY: " + evt.clientY);
+            //console.log("canvas.offsetLeft: " + canvas.offsetLeft + " , canvas.offsetTop: " + canvas.offsetTop);
+            //console.log("posX: " + posX + " , posY: " + posY);
+            console.log("Left: " + document.documentElement.scrollLeft + " , Top: " + document.documentElement.scrollTop);
+
+            if (posX >= sensor1_x &&
+                posX <= (sensor1_x + 53) &&
+                posY >= sensor1_y &&
+                posY <= (sensor1_y + 48)
+            ) {
+                flag = '1on';
+            } else if (posX >= sensor2_x &&
+                posX <= (sensor2_x + 53) &&
+                posY >= sensor2_y &&
+                posY <= (sensor2_y + 48)) {
+                flag = '2on';
+            } else if (posX >= sensor3_x &&
+                posX <= (sensor3_x + 53) &&
+                posY >= sensor3_y &&
+                posY <= (sensor3_y + 48)) {
+                flag = '3on';
+            } else if (posX >= sensor4_x &&
+                posX <= (sensor4_x + 53) &&
+                posY >= sensor4_y &&
+                posY <= (sensor4_y + 48)) {
+                flag = '4on';
+            } else if (posX >= sensor5_x &&
+                posX <= (sensor5_x + 53) &&
+                posY >= sensor5_y &&
+                posY <= (sensor5_y + 48)) {
+                flag = '5on';
+            } else if (posX >= sensor6_x &&
+                posX <= (sensor6_x + 53) &&
+                posY >= sensor6_y &&
+                posY <= (sensor6_y + 48)) {
+                flag = '6on';
+            }
+        }
+        document.onmouseup = function () {
+            flag = 'off';
+        }
+        document.onmousemove = function (evt) {
+            evt = (evt) || window.event;
+            if (flag == '1on') {
+                if (parseInt(evt.clientX + document.documentElement.scrollLeft) > parseInt(531 + canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) > parseInt(289 + canvas.offsetTop) || parseInt(evt.clientX + document.documentElement.scrollLeft) < parseInt(canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) < parseInt(canvas.offsetTop)) {
+
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img_house, 0, 0, 531, 289);
+
+                    posX = parseInt(evt.clientX - canvas.offsetLeft + document.documentElement.scrollLeft);
+                    posY = parseInt(evt.clientY - canvas.offsetTop + document.documentElement.scrollTop);
+
+                    ctx.drawImage(img_sensor6, sensor6_x, sensor6_y, 53, 48);
+                    ctx.drawImage(img_sensor5, sensor5_x, sensor5_y, 53, 48);
+                    ctx.drawImage(img_sensor4, sensor4_x, sensor4_y, 53, 48);
+                    ctx.drawImage(img_sensor3, sensor3_x, sensor3_y, 53, 48);
+                    ctx.drawImage(img_sensor2, sensor2_x, sensor2_y, 53, 48);
+
+                    ctx.drawImage(img_sensor1, posX - 26.5, posY - 24, 53, 48);
+                    sensor1_x = posX - 26.5;
+                    sensor1_y = posY - 24;
+                }
+            } else if (flag == '2on') {
+                if (parseInt(evt.clientX + document.documentElement.scrollLeft) > parseInt(531 + canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) > parseInt(289 + canvas.offsetTop) || parseInt(evt.clientX + document.documentElement.scrollLeft) < parseInt(canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) < parseInt(canvas.offsetTop)) {
+
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img_house, 0, 0, 531, 289);
+
+                    posX = parseInt(evt.clientX - canvas.offsetLeft + document.documentElement.scrollLeft);
+                    posY = parseInt(evt.clientY - canvas.offsetTop + document.documentElement.scrollTop);
+
+                    ctx.drawImage(img_sensor6, sensor6_x, sensor6_y, 53, 48);
+                    ctx.drawImage(img_sensor5, sensor5_x, sensor5_y, 53, 48);
+                    ctx.drawImage(img_sensor4, sensor4_x, sensor4_y, 53, 48);
+                    ctx.drawImage(img_sensor3, sensor3_x, sensor3_y, 53, 48);
+                    ctx.drawImage(img_sensor1, sensor1_x, sensor1_y, 53, 48);
+
+                    ctx.drawImage(img_sensor2, posX - 26.5, posY - 24, 53, 48);
+                    sensor2_x = posX - 26.5;
+                    sensor2_y = posY - 24;
+                }
+            } else if (flag == '3on') {
+                if (parseInt(evt.clientX + document.documentElement.scrollLeft) > parseInt(531 + canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) > parseInt(289 + canvas.offsetTop) || parseInt(evt.clientX + document.documentElement.scrollLeft) < parseInt(canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) < parseInt(canvas.offsetTop)) {
+
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img_house, 0, 0, 531, 289);
+
+                    posX = parseInt(evt.clientX - canvas.offsetLeft + document.documentElement.scrollLeft);
+                    posY = parseInt(evt.clientY - canvas.offsetTop + document.documentElement.scrollTop);
+
+                    ctx.drawImage(img_sensor6, sensor6_x, sensor6_y, 53, 48);
+                    ctx.drawImage(img_sensor5, sensor5_x, sensor5_y, 53, 48);
+                    ctx.drawImage(img_sensor4, sensor4_x, sensor4_y, 53, 48);
+                    ctx.drawImage(img_sensor2, sensor2_x, sensor2_y, 53, 48);
+                    ctx.drawImage(img_sensor1, sensor1_x, sensor1_y, 53, 48);
+
+                    ctx.drawImage(img_sensor3, posX - 26.5, posY - 24, 53, 48);
+                    sensor3_x = posX - 26.5;
+                    sensor3_y = posY - 24;
+                }
+            } else if (flag == '4on') {
+                if (parseInt(evt.clientX + document.documentElement.scrollLeft) > parseInt(531 + canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) > parseInt(289 + canvas.offsetTop) || parseInt(evt.clientX + document.documentElement.scrollLeft) < parseInt(canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) < parseInt(canvas.offsetTop)) {
+
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img_house, 0, 0, 531, 289);
+
+                    posX = parseInt(evt.clientX - canvas.offsetLeft + document.documentElement.scrollLeft);
+                    posY = parseInt(evt.clientY - canvas.offsetTop + document.documentElement.scrollTop);
+
+                    ctx.drawImage(img_sensor6, sensor6_x, sensor6_y, 53, 48);
+                    ctx.drawImage(img_sensor5, sensor5_x, sensor5_y, 53, 48);
+                    ctx.drawImage(img_sensor3, sensor3_x, sensor3_y, 53, 48);
+                    ctx.drawImage(img_sensor2, sensor2_x, sensor2_y, 53, 48);
+                    ctx.drawImage(img_sensor1, sensor1_x, sensor1_y, 53, 48);
+
+                    ctx.drawImage(img_sensor4, posX - 26.5, posY - 24, 53, 48);
+                    sensor4_x = posX - 26.5;
+                    sensor4_y = posY - 24;
+                }
+            } else if (flag == '5on') {
+                if (parseInt(evt.clientX + document.documentElement.scrollLeft) > parseInt(531 + canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) > parseInt(289 + canvas.offsetTop) || parseInt(evt.clientX + document.documentElement.scrollLeft) < parseInt(canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) < parseInt(canvas.offsetTop)) {
+
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img_house, 0, 0, 531, 289);
+
+                    posX = parseInt(evt.clientX - canvas.offsetLeft + document.documentElement.scrollLeft);
+                    posY = parseInt(evt.clientY - canvas.offsetTop + document.documentElement.scrollTop);
+
+                    ctx.drawImage(img_sensor6, sensor6_x, sensor6_y, 53, 48);
+                    ctx.drawImage(img_sensor4, sensor4_x, sensor4_y, 53, 48);
+                    ctx.drawImage(img_sensor3, sensor3_x, sensor3_y, 53, 48);
+                    ctx.drawImage(img_sensor2, sensor2_x, sensor2_y, 53, 48);
+                    ctx.drawImage(img_sensor1, sensor1_x, sensor1_y, 53, 48);
+
+                    ctx.drawImage(img_sensor5, posX - 26.5, posY - 24, 53, 48);
+                    sensor5_x = posX - 26.5;
+                    sensor5_y = posY - 24;
+                }
+            } else if (flag == '6on') {
+                if (parseInt(evt.clientX + document.documentElement.scrollLeft) > parseInt(531 + canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) > parseInt(289 + canvas.offsetTop) || parseInt(evt.clientX + document.documentElement.scrollLeft) < parseInt(canvas.offsetLeft) || parseInt(evt.clientY + document.documentElement.scrollTop) < parseInt(canvas.offsetTop)) {
+
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img_house, 0, 0, 531, 289);
+
+                    posX = parseInt(evt.clientX - canvas.offsetLeft + document.documentElement.scrollLeft);
+                    posY = parseInt(evt.clientY - canvas.offsetTop + document.documentElement.scrollTop);
+
+                    ctx.drawImage(img_sensor5, sensor5_x, sensor5_y, 53, 48);
+                    ctx.drawImage(img_sensor4, sensor4_x, sensor4_y, 53, 48);
+                    ctx.drawImage(img_sensor3, sensor3_x, sensor3_y, 53, 48);
+                    ctx.drawImage(img_sensor2, sensor2_x, sensor2_y, 53, 48);
+                    ctx.drawImage(img_sensor1, sensor1_x, sensor1_y, 53, 48);
+
+                    ctx.drawImage(img_sensor6, posX - 26.5, posY - 24, 53, 48);
+                    sensor6_x = posX - 26.5;
+                    sensor6_y = posY - 24;
+                }
+            }
+        }
+    }
+
+
+    function ShowDetailDialog(SensorID, BatteryExchangeDate, LatestUploadDate_Temp, LatestUploadDate_Humi, LatestUploadDate_Light, LatestUploadDate_Human, UploadCycle_Temp, UploadCycle_Humi, UploadCycle_Light, UploadCycle_Human, BaseStationName, Detail) {
+
+        if (window.confirm('ID: ' + SensorID + '\n\n'
+            + '最終電池交換時刻: ' + BatteryExchangeDate + '\n\n'
+            + '最終更新時刻(温度): ' + LatestUploadDate_Temp + '\n\n'
+            + '最終更新時刻(湿度): ' + LatestUploadDate_Humi + '\n\n'
+            + '最終更新時刻(照度): ' + LatestUploadDate_Light + '\n\n'
+            + '最終更新時刻(人感): ' + LatestUploadDate_Human + '\n\n'
+            + '周期(温度): ' + UploadCycle_Temp + '\n\n'
+            + '周期(湿度): ' + UploadCycle_Humi + '\n\n'
+            + '周期(照度): ' + UploadCycle_Light + '\n\n'
+            + '周期(人感): ' + UploadCycle_Human + '\n\n'
+            + '基地局名: ' + BaseStationName + '\n\n'
+            + 'メモ: ' + Detail)) {
+
+        } else {
+        }
+    }
+
+    function PositionSave() {
+        console.log("MarimoCheck");
+        $.ajax({
+            type: 'post',
+            url: '@BaseUrl' + 'api/positionsave',
+            data: '=' + sensor1_x + ',' + sensor1_y + ',' + sensor2_x + ',' + sensor2_y + ',' + sensor3_x + ',' + sensor3_y + ',' + sensor4_x + ',' + sensor4_y + ',' + sensor5_x + ',' + sensor5_y + ',' + sensor6_x + ',' + sensor6_y,
+            success: function (data) {
+                alert('保存しました。');
+            },
+            error: function () {
+                alert('エラー');
+            }
+        });
+    }
+
+</script>
+
+<style type="text/css">
+    table {
+        border: 3px solid #ccc;
+        border-spacing: 0;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th {
+        border: 1px solid #ccc;
+        background-color: #808080;
+        color: #fff;
+        text-align: center;
+    }
+
+    td {
+        border: 1px solid #ccc;
+        background-color: #fff;
+        text-align: center;
+    }
+</style>
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h1>@ViewBag.Message</h1>
+            </hgroup>
+        </div>
+    </section>
+
+}
+
+<br />
+<img src="@BaseUrl/Pictures/環境ボタン1.png" alt="" title="環境センサ" width="260" height="70">
+<br />
+<canvas id="Canvas" width="531" height="289"></canvas>
+<input id="BT_Save" type="button" name="save" value="位置を保存" onclick="PositionSave()" />
+
+<table>
+
+    <tr>
+        <th class="center" align="center">変更</th>
+        <th class="center" align="center">Img</th>
+        <th class="center" align="center">ID</th>
+        <th class="center" align="center">最終電池交換時刻</th>
+        <th class="center" align="center">最終更新時刻（温度）</th>
+        <th class="center" align="center">最終更新時刻（湿度）</th>
+        <th class="center" align="center">最終更新時刻（照度）</th>
+        <th class="center" align="center">最終更新時刻（人感）</th>
+        <th class="center" align="center">詳細</th>
+
+    </tr>
+
+    @foreach (var x in Model) {
+
+        <tr class="center">
+
+            <td class="center">
+                @Html.ActionLink("変更", "ChangeEnvironmentInfo", "Home", new { sensorID = x.SensorID }, new { })
+            </td>
+            <td class="center">
+                @if (x.SensorID == 9) {
+                    <img class="center" src="@BaseUrl/Pictures/環境センサ1.png" width="27" height="24" />
+                } else if (x.SensorID == 16) {
+                    <img class="center" src="@BaseUrl/Pictures/環境センサ2.png" width="27" height="24" />
+                } else if (x.SensorID == 17) {
+                    <img class="center" src="@BaseUrl/Pictures/環境センサ3.png" width="27" height="24" />
+                } else if (x.SensorID == 23) {
+                    <img class="center" src="@BaseUrl/Pictures/環境センサ4.png" width="27" height="24" />
+                } else if (x.SensorID == 31) {
+                    <img class="center" src="@BaseUrl/Pictures/環境センサ5.png" width="27" height="24" />
+                } else if (x.SensorID == 44) {
+                    <img class="center" src="@BaseUrl/Pictures/環境センサ6.png" width="27" height="24" />
+                }
+            </td>
+
+            <td class="center">
+                @x.SensorID
+            </td>
+
+            <td class="center">
+                @x.BatteryExchangeDate
+            </td>
+
+            <td class="center">
+                @x.LatestUploadDate_Temp
+            </td>
+
+            <td class="center">
+                @x.LatestUploadDate_Humi
+            </td>
+
+            <td class="center">
+                @x.LatestUploadDate_Light
+            </td>
+
+            <td class="center">
+                @x.LatestUploadDate_Human
+            </td>
+
+            <td class="center">
+                <a href="#" onclick="ShowDetailDialog('@x.SensorID','@x.BatteryExchangeDate','@x.LatestUploadDate_Temp','@x.LatestUploadDate_Humi','@x.LatestUploadDate_Light','@x.LatestUploadDate_Human','@x.UploadCycle_Temp','@x.UploadCycle_Humi','@x.UploadCycle_Light','@x.UplloadCycle_Human','@x.BaseStationName','@x.Detail')">表示</a>
+            </td>
+
+        </tr>
+
+    }
+
+</table>
+

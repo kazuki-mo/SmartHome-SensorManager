@@ -1,0 +1,37 @@
+﻿@model SmartHome_SensorManagement.Models.DoorSensor
+@{
+    ViewBag.Title = "ChangePowerInfo";
+}
+
+<br />
+<h2>開閉センサ（ ID:@Model.SensorID ）の情報を変更</h2>
+<br />
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+
+    <fieldset>
+        <legend></legend>
+        <ol>
+            <li>
+                @Html.Label("ドア")
+                @Html.TextBoxFor(m => m.Door)
+            </li>
+            <li>
+                @Html.Label("最終電池交換時刻")
+                @Html.TextBoxFor(m => m.BatteryExchangeDate)
+            </li>
+            <li>
+                @Html.Label("メモ")
+                @Html.TextAreaFor(m => m.Detail)
+            </li>
+        </ol>
+        <input type="submit" value="変更" />
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

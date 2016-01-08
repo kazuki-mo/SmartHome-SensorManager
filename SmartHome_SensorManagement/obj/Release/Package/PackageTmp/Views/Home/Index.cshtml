@@ -1,0 +1,60 @@
+﻿@model SmartHome_SensorManagement.Models.SensorConditionEntities
+@{
+    ViewBag.Title = "Sensor Manager";
+    var xx = System.Web.HttpContext.Current.Request;
+    string BaseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, xx.Url.Authority, Url.Content("~"));
+}
+
+<script type="text/javascript">
+    //$(function () {
+    //    $('a img').hover(function () {
+    //        $(this).attr('src', $(this).attr('src').replace('1', '2'));
+    //    }, function () {
+    //        if (!$(this).hasClass('currentPage')) {
+    //            $(this).attr('src', $(this).attr('src').replace('2', '1'));
+    //        }
+    //    });
+    //});
+</script>
+
+<style type="text/css">
+    a.hover:hover {
+        background-color: rgba(0, 0, 0, 0.00);
+    }
+</style>
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h1>@ViewBag.Message</h1>
+            </hgroup>
+        </div>
+    </section>
+
+}
+
+<h2>
+    センサ種類を選んでください。
+</h2>
+
+<table>
+    <tr>
+        <td>
+            <a class="hover" href="@BaseUrl/Home/Power"><img src="@BaseUrl/Pictures/電力ボタン1.png" alt="" title="電力センサ" width="260" height="70" onmouseover="this.src = '@BaseUrl/Pictures/電力ボタン2.png';" onmouseout="this.src = '@BaseUrl/Pictures/電力ボタン1.png'"></a>
+        </td>
+        <td>
+            <a class="hover" href="@BaseUrl/Home/Environment"><img src="@BaseUrl/Pictures/環境ボタン1.png" alt="" title="環境センサ" width="260" height="70" onmouseover="this.src = '@BaseUrl/Pictures/環境ボタン2.png';" onmouseout="this.src = '@BaseUrl/Pictures/環境ボタン1.png'"></a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a class="hover" href="@BaseUrl/Home/Door"><img src="@BaseUrl/Pictures/開閉ボタン1.png" alt="" title="開閉センサ" width="260" height="70" onmouseover="this.src = '@BaseUrl/Pictures/開閉ボタン2.png';" onmouseout="this.src = '@BaseUrl/Pictures/開閉ボタン1.png'"></a>
+        </td>
+        <td>
+            <a class="hover" href="@BaseUrl/Home/Position"><img src="@BaseUrl/Pictures/位置ボタン1.png" alt="" title="位置センサ" width="260" height="70" onmouseover="this.src = '@BaseUrl/Pictures/位置ボタン2.png';" onmouseout="this.src = '@BaseUrl/Pictures/位置ボタン1.png'"></a>
+        </td>
+    </tr>
+</table>
+

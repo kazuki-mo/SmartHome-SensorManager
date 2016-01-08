@@ -1,0 +1,29 @@
+﻿@model SmartHome_SensorManagement.Models.PositionSensor
+@{
+    ViewBag.Title = "ChangePowerInfo";
+}
+
+<br />
+<h2>位置センサ（ ID:@Model.SensorID ）の情報を変更</h2>
+<br />
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+
+    <fieldset>
+        <legend></legend>
+        <ol>
+            <li>
+                @Html.Label("メモ")
+                @Html.TextAreaFor(m => m.Detail)
+            </li>
+        </ol>
+        <input type="submit" value="変更" />
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

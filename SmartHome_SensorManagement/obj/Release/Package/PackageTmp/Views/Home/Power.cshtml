@@ -1,0 +1,124 @@
+﻿@model System.Data.Entity.DbSet<SmartHome_SensorManagement.Models.PowerSensor>
+@{
+    ViewBag.Title = "Sensor Manager";
+    var xx = System.Web.HttpContext.Current.Request;
+    string BaseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, xx.Url.Authority, Url.Content("~"));
+
+    string detail = "null";
+}
+
+<script>
+    function ShowDetailDialog(Detail) {
+
+        if (window.confirm(Detail)) {
+
+        } else {
+        }
+    }
+
+</script>
+
+<style type="text/css">
+    table {
+        border: 3px solid #ccc;
+        border-spacing: 0;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th {
+        border: 1px solid #ccc;
+        background-color: #808080;
+        color: #fff;
+        text-align: center;
+    }
+
+    td {
+        border: 1px solid #ccc;
+        background-color: #fff;
+        text-align: center;
+    }
+</style>
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h1>@ViewBag.Message</h1>
+            </hgroup>
+        </div>
+    </section>
+
+}
+
+<br />
+<img src="@BaseUrl/Pictures/電力ボタン1.png" alt="" title="電力センサ" width="260" height="70">
+
+<table>
+
+    <tr>
+        <th class="center" align="center">操作</th>
+        <th class="center" align="center">ID</th>
+        <th class="center" align="center">接続中家電</th>
+        <th class="center" align="center">種類</th>
+        <th class="center" align="center">最終更新時刻</th>
+        <th class="center" align="center">基地局名</th>
+        <th class="center" align="center">周期</th>
+        <th class="center" align="center">メモ</th>
+
+    </tr>
+
+    @foreach (var x in Model) {
+
+        <tr class="center">
+
+            <td class="center">
+                @Html.ActionLink("変更", "ChangePowerInfo", "Home", new {sensorID = x.SensorID}, new { })
+            </td>
+
+            <td class="center">
+                @x.SensorID
+            </td>
+
+            <td class="center">
+                @x.ConsumerElectronics
+            </td>
+
+            <td class="center">
+                @x.Type
+            </td>
+
+            <td class="center">
+                @x.LatestUploadDate
+            </td>
+
+            <td class="center">
+                @x.BaseStationName
+            </td>
+
+            <td class="center">
+                @x.UploadCycle
+            </td>
+
+            <td class="center">
+                @{
+        detail = "null";
+        try {
+            detail = x.Detail.ToString();
+        } catch {
+            
+        }
+                }
+                @if (!detail.Equals("null")) {
+                    <a href="#" onclick="ShowDetailDialog('@x.Detail')">表示</a>
+                }
+
+                @*@x.Detail*@
+            </td>
+
+        </tr>
+
+    }
+
+</table>
